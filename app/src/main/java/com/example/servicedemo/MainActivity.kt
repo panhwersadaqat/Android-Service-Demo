@@ -15,24 +15,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun btnStartService() {
-        Intent(this, SampleService::class.java).also {
+        Intent(this, SampleMusicService::class.java).also {
             startService(it)
             binding.statusTextView.text = "Service Started"
         }
     }
 
     fun btnStopService() {
-        Intent(this, SampleService::class.java).also {
+        Intent(this, SampleMusicService::class.java).also {
             stopService(it)
             binding.statusTextView.text = "Service Stopped"
-        }
-    }
-
-    fun btnSendData() {
-        Intent(this, SampleService::class.java).also {
-            val sampleData = binding.dataEditText.text.toString()
-            it.putExtra("Sample_data", sampleData)
-            startService(it)
         }
     }
 }

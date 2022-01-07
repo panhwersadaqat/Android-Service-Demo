@@ -2,6 +2,7 @@ package com.example.servicedemo
 
 import android.app.Service
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Handler
 import android.os.IBinder
 import android.util.Log
@@ -12,25 +13,29 @@ import android.util.Log
  * on 1/7/22.
  */
 
-class SampleService : Service() {
+class SampleMusicService : Service() {
+
+    private lateinit var mediaPlayer: MediaPlayer
 
     init {
         Log.d("MYTAG","Service is running...")
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
+    override fun onCreate() {
+        super.onCreate()
+        mediaPlayer = MediaPlayer.create(this, R.raw.sound);
+        mediaPlayer.isLooping = true
+    }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val dataString = intent?.getStringExtra("Sample_data")
-        dataString?.let {
-            Log.d("MYTAG", dataString)
-            for (i in 0..1000){
-                Handler().postDelayed({
-                    Log.d("MYTAG", i.toString())
-                }, 6000)
-            }
-        }
-        return START_STICKY
+        mediaPlayer.start()
+        return startId
 
     }
+    override fun onDestroy() {
+        mediaPlayer.stop()
+        mediaPlayer.release()
+    }
+
 }
