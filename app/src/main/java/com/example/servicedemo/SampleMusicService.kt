@@ -24,7 +24,7 @@ class SampleMusicService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
     override fun onCreate() {
         super.onCreate()
-        mediaPlayer = MediaPlayer.create(this, R.raw.sound);
+        mediaPlayer = MediaPlayer.create(this, R.raw.sound)
         mediaPlayer.isLooping = true
     }
 
